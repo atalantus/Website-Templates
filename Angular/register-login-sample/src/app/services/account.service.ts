@@ -8,10 +8,7 @@ import {User} from '../value-types/User';
   providedIn: 'root'
 })
 export class AccountService {
-  public isLoggedIn: boolean;
-  public username: string;
-  public email: string;
-  public discordId: string;
+  public user: User;
   private usersApi = 'api/user';  // URL to web api
 
   constructor(private http: HttpClient) {

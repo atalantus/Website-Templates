@@ -1,10 +1,20 @@
 div {
   min-height: 100%;
   min-width: 100%;
-  display: flex;
-  flex-direction: column;
 
-  app-main-content {
-    display: flex;
+  #toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+  }
+
+  #footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 58px;
   }
 }

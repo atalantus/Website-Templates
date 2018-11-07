@@ -1,5 +1,6 @@
 :host {
   z-index: 1;
+  height: 64px;
 }
 
 mat-toolbar {
@@ -12,7 +13,7 @@ mat-toolbar {
     flex: 1 1 auto;
   }
 
-  .navbar-btn {
+  .toolbar-btn {
     height: 100%;
     line-height: 64px;
   }

@@ -1,27 +1,32 @@
 <mat-toolbar color="primary">
 
-  <a mat-button routerLink="./home" class="navbar-btn" id="title">OH Community</a>
+  <a mat-button routerLink="./home" class="toolbar-btn" id="title">App Title</a>
   <span class="spacer"></span>
-  <button mat-button [matMenuTriggerFor]="menu" class="navbar-btn">
-    <mat-icon>person</mat-icon>
-    atalantus
-    <mat-icon>arrow_drop_down</mat-icon>
-  </button>
-  <mat-menu #menu="matMenu" overlapTrigger="false">
-    <button mat-menu-item>
-      <mat-icon>dialpad</mat-icon>
-      <span>Bug or feature request</span>
+  <div *ngIf="accountService.user != undefined">
+    <button mat-button [matMenuTriggerFor]="menu" class="toolbar-btn">
+      <mat-icon>person</mat-icon>
+      {{accountService.user.username}}
+      <mat-icon>arrow_drop_down</mat-icon>
     </button>
-    <button mat-menu-item (click)="toggleTheme()">
-      <mat-icon>brightness_4</mat-icon>
-      <span *ngIf="!settingsService.isLightTheme">Toggle light theme</span>
-      <span *ngIf="settingsService.isLightTheme">Toggle dark theme</span>
-    </button>
-    <button mat-menu-item>
-      <mat-icon>notifications_off</mat-icon>
-      <span>Join our Discord</span>
-    </button>
-  </mat-menu>
+    <mat-menu #menu="matMenu" overlapTrigger="false">
+      <button mat-menu-item (click)="toggleTheme()">
+        <mat-icon>brightness_4</mat-icon>
+        <span *ngIf="!settingsService.settings.isLightTheme">Toggle light theme</span>
+        <span *ngIf="settingsService.settings.isLightTheme">Toggle dark theme</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>dialpad</mat-icon>
+        <span>Bug or feature request</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>notifications_off</mat-icon>
+        <span>Join our Discord</span>
+      </button>
+    </mat-menu>
+  </div>
+  <div *ngIf="accountService.user == undefined">
+    <button mat-button class="toolbar-btn" routerLink="./login">Login</button>
+  </div>
 
 
 </mat-toolbar>

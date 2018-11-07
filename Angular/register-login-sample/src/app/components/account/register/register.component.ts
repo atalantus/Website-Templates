@@ -4,6 +4,7 @@ import {AccountService} from '../../../services/account.service';
 import {SettingsService} from '../../../services/settings.service';
 import {AbstractControl, FormControl, ValidatorFn, Validators} from '@angular/forms';
 import {User} from '../../../value-types/user';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +21,10 @@ export class RegisterComponent implements OnInit {
   password = new FormControl('', [Validators.required, Validators.minLength(this.minPwdLength)]);
   passwordRepeat = new FormControl('', [Validators.required, Validators.nullValidator, this.matchesPassword()]);
 
-  constructor(public settingsService: SettingsService, private accountService: AccountService, private snackBar: MatSnackBar) {
+  constructor(public settingsService: SettingsService,
+              private accountService: AccountService,
+              private snackBar: MatSnackBar,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -46,7 +50,6 @@ export class RegisterComponent implements OnInit {
         if (msg !== undefined) {
           this.snackBar.open(msg, null, {
             panelClass: ['darker-warning-snackbar', 'center-content-snackbar'],
-            verticalPosition: 'top',
             duration: 2000
           });
           this.waiting = false;
@@ -61,7 +64,6 @@ export class RegisterComponent implements OnInit {
               default:
                 this.snackBar.open(`ERROR ${resp.status}: ${resp.statusText}`, null, {
                   panelClass: ['darker-warning-snackbar', 'center-content-snackbar'],
-                  verticalPosition: 'top',
                   duration: 2000
                 });
             }
@@ -70,7 +72,10 @@ export class RegisterComponent implements OnInit {
 
         break;
       case 1:
-        console.log('Discord');
+        this.snackBar.open(`Implement this yourself!`, null, {
+          panelClass: ['center-content-snackbar'],
+          duration: 2000
+        });
         break;
     }
   }
@@ -78,6 +83,8 @@ export class RegisterComponent implements OnInit {
   login(account: User) {
     // TODO: Login
     console.log(`Login: ${account.username}`);
+    this.accountService.user = account;
+    this.router.navigateByUrl('./home');
   }
 
   matchesPassword(): ValidatorFn {
