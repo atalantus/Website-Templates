@@ -1,0 +1,27 @@
+<mat-toolbar color="primary">
+
+  <a mat-button routerLink="./home" class="navbar-btn" id="title">OH Community</a>
+  <span class="spacer"></span>
+  <button mat-button [matMenuTriggerFor]="menu" class="navbar-btn">
+    <mat-icon>person</mat-icon>
+    atalantus
+    <mat-icon>arrow_drop_down</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu" overlapTrigger="false">
+    <button mat-menu-item>
+      <mat-icon>dialpad</mat-icon>
+      <span>Bug or feature request</span>
+    </button>
+    <button mat-menu-item (click)="toggleTheme()">
+      <mat-icon>brightness_4</mat-icon>
+      <span *ngIf="!settingsService.isLightTheme">Toggle light theme</span>
+      <span *ngIf="settingsService.isLightTheme">Toggle dark theme</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>notifications_off</mat-icon>
+      <span>Join our Discord</span>
+    </button>
+  </mat-menu>
+
+
+</mat-toolbar>

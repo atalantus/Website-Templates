@@ -1,0 +1,65 @@
+<div>
+  <h1 class="mat-display-1">Join us today!</h1>
+
+  <mat-card class="mat-elevation-z6">
+    <mat-card-header class="mat-title">
+      Register
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-tab-group dynamicHeight mat-stretch-tabs [(selectedIndex)]="tabIndex">
+
+        <mat-tab label="via OHC">
+          <div class="container">
+            <mat-form-field>
+              <input matInput placeholder="Username" [formControl]="username" required>
+              <mat-error *ngIf="username.invalid">{{getUsernameErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput type="email" placeholder="Email" [formControl]="email" required appEmailValidator>
+              <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
+              <mat-spinner *ngIf="email.pending" matSuffix diameter="17"></mat-spinner>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput type="password" placeholder="Password" [formControl]="password" required>
+              <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput type="password" placeholder="Repeat password" [formControl]="passwordRepeat" required>
+              <mat-error *ngIf="passwordRepeat.invalid">{{getPasswordRepeatErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+        </mat-tab>
+
+        <mat-tab>
+          <ng-template mat-tab-label>
+            via Discord
+          </ng-template>
+          <div class="container">
+            <img *ngIf="settingsService.isLightTheme" src="assets/Discord-Logo+Wordmark-Black.svg" width="200px"
+                 alt="Discord Brand Logo">
+            <img *ngIf="!settingsService.isLightTheme" src="assets/Discord-Logo+Wordmark-White.svg" width="200px"
+                 alt="Discord Brand Logo">
+            <h3 class="mat-subheading-2">Use your Discord Account to authenticate!</h3>
+          </div>
+        </mat-tab>
+
+      </mat-tab-group>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="register()">
+        <div id="registerBtnContent">
+          REGISTER
+          <mat-spinner *ngIf="waiting" class="primary-contrast-spinner" diameter="17"></mat-spinner>
+        </div>
+      </button>
+    </mat-card-actions>
+
+    <mat-card-footer>
+      <a mat-button routerLink="./login" color="accent">Already have an account? Login</a>
+
+    </mat-card-footer>
+  </mat-card>
+
+</div>

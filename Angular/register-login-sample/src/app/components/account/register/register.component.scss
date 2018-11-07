@@ -1,0 +1,60 @@
+:host {
+  flex: 1 1 auto;
+}
+
+div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  h1 {
+    margin-bottom: 35px;
+  }
+
+  mat-card {
+    padding-left: 0;
+    padding-right: 0;
+    min-width: 250px;
+    width: 100%;
+    max-width: 450px;
+
+    mat-card-header {
+      margin-left: 15px;
+    }
+
+    mat-card-content {
+      margin-top: 10px;
+
+      .container {
+        padding: 10px 35px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        mat-form-field {
+          width: 100%;
+          margin-top: 5px;
+        }
+      }
+    }
+
+    mat-card-actions {
+      margin-left: 15px;
+      margin-right: 15px;
+
+      display: flex;
+      flex-direction: row-reverse;
+
+      #registerBtnContent {
+        display: flex;
+        flex-direction: row;
+
+        mat-spinner {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}
+

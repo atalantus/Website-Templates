@@ -1,0 +1,9 @@
+@import '~@angular/material/theming';
+
+@mixin spinner-component-theme($theme) {
+  $primary: map-get($theme, primary);
+
+  .primary-contrast-spinner circle {
+    stroke: mat-color($primary, default-contrast);
+  }
+}

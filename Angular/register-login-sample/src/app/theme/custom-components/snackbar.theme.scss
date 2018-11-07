@@ -1,0 +1,16 @@
+@import '~@angular/material/theming';
+
+@mixin snackbar-component-theme($theme) {
+  $warning: map-get($theme, warn);
+
+  .darker-warning-snackbar {
+    background: mat-color($warning, darker);
+    color: mat-color($warning, darker-contrast);
+  }
+
+  .center-content-snackbar {
+    simple-snack-bar {
+      justify-content: center;
+    }
+  }
+}

@@ -1,0 +1,28 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+@import 'dark-theme';
+@import 'light-theme';
+
+@import "custom-components/snackbar.theme";
+@import "custom-components/spinner.theme";
+@import '../components/main/footer/footer.component.theme';
+
+@mixin custom-components-theme($theme) {
+  @include snackbar-component-theme($theme);
+  @include spinner-component-theme($theme);
+  @include footer-component-theme($theme);
+}
+
+:not(.light) {
+  @include angular-material-theme($dark-theme);
+
+  @include custom-components-theme($dark-theme);
+}
+
+.light {
+  @include angular-material-theme($light-theme);
+
+  @include custom-components-theme($light-theme);
+}
