@@ -83,8 +83,9 @@ export class RegisterComponent implements OnInit {
   login(account: User) {
     // TODO: Login
     console.log(`Login: ${account.username}`);
+    this.settingsService.loadSettings(account);
     this.accountService.user = account;
-    this.router.navigateByUrl('./home');
+    this.router.navigateByUrl('/home');
   }
 
   matchesPassword(): ValidatorFn {

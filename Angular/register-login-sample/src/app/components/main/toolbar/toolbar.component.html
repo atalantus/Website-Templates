@@ -14,13 +14,9 @@
         <span *ngIf="!settingsService.settings.isLightTheme">Toggle light theme</span>
         <span *ngIf="settingsService.settings.isLightTheme">Toggle dark theme</span>
       </button>
-      <button mat-menu-item>
-        <mat-icon>dialpad</mat-icon>
-        <span>Bug or feature request</span>
-      </button>
-      <button mat-menu-item>
+      <button mat-menu-item (click)="logout()">
         <mat-icon>notifications_off</mat-icon>
-        <span>Join our Discord</span>
+        <span>Logout</span>
       </button>
     </mat-menu>
   </div>

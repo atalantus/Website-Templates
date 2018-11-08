@@ -1,3 +1,57 @@
-<p>
-  login works!
-</p>
+<div>
+  <h1 class="mat-display-1">Login</h1>
+
+  <mat-card class="mat-elevation-z6">
+    <mat-card-header class="mat-title">
+      Login
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-tab-group dynamicHeight mat-stretch-tabs [(selectedIndex)]="tabIndex">
+
+        <mat-tab label="via App">
+          <div class="container">
+            <mat-form-field>
+              <input matInput placeholder="Username or Email" [formControl]="username" required>
+              <mat-error *ngIf="username.invalid">{{getUsernameErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput type="password" placeholder="Password" [formControl]="password" required>
+              <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+            </mat-form-field>
+            <mat-checkbox>Remember me</mat-checkbox>
+          </div>
+        </mat-tab>
+
+        <mat-tab>
+          <ng-template mat-tab-label>
+            via Discord
+          </ng-template>
+          <div class="container">
+            <img *ngIf="settingsService.isLightTheme" src="assets/Discord-Logo+Wordmark-Black.svg" width="200px"
+                 alt="Discord Brand Logo">
+            <img *ngIf="!settingsService.isLightTheme" src="assets/Discord-Logo+Wordmark-White.svg" width="200px"
+                 alt="Discord Brand Logo">
+            <h3 class="mat-subheading-2">Use your Discord Account to authenticate!</h3>
+          </div>
+        </mat-tab>
+
+      </mat-tab-group>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="register()">
+        <div id="registerBtnContent">
+          LOGIN
+          <mat-spinner *ngIf="waiting" class="primary-contrast-spinner" diameter="17"></mat-spinner>
+        </div>
+      </button>
+    </mat-card-actions>
+
+    <mat-card-footer>
+      <a mat-button routerLink="../register" color="accent">New to this site? Register</a>
+
+    </mat-card-footer>
+  </mat-card>
+
+</div>
