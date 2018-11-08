@@ -42,6 +42,22 @@ export class AccountService {
     });
   }
 
+  login(username: string, isUsername: boolean, password: string): Observable<User | null> {
+    username = encodeURIComponent(username);
+    const url = this.usersApi + `?password=${password}&` + (isUsername ? `username=${username}` : `email=${username}`);
+    console.log(url);
+    return this.http.get<User[]>(url)
+      .pipe(
+        map(matched => {
+          if (matched.length > 0) {
+            return matched[0];
+          }
+          return null;
+        }),
+        catchError(() => of(null))
+      );
+  }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.

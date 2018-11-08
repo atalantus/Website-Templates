@@ -5,6 +5,7 @@ import {SettingsService} from '../../../services/settings.service';
 import {AbstractControl, FormControl, ValidatorFn, Validators} from '@angular/forms';
 import {User} from '../../../value-types/user';
 import {Router} from '@angular/router';
+import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-register',
@@ -15,8 +16,9 @@ export class RegisterComponent implements OnInit {
   waiting = false;
   tabIndex = 0;
   minPwdLength = 6;
+  forbiddenChars = ['@', '<', '>'];
 
-  username = new FormControl('', [Validators.required, Validators.nullValidator]);
+  username = new FormControl('', [Validators.required, Validators.nullValidator, this.usesValidCharacters()]);
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required, Validators.minLength(this.minPwdLength)]);
   passwordRepeat = new FormControl('', [Validators.required, Validators.nullValidator, this.matchesPassword()]);
@@ -72,6 +74,7 @@ export class RegisterComponent implements OnInit {
 
         break;
       case 1:
+        this.waiting = false;
         this.snackBar.open(`Implement this yourself!`, null, {
           panelClass: ['center-content-snackbar'],
           duration: 2000
@@ -81,7 +84,6 @@ export class RegisterComponent implements OnInit {
   }
 
   login(account: User) {
-    // TODO: Login
     console.log(`Login: ${account.username}`);
     this.settingsService.loadSettings(account);
     this.accountService.user = account;
@@ -95,10 +97,22 @@ export class RegisterComponent implements OnInit {
     };
   }
 
+  usesValidCharacters(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const value = control.value.toString();
+      let valid = true;
+      this.forbiddenChars.forEach((e) => {
+        if (value.includes(e)) {valid = false;}
+      });
+      return valid ? null : {'invalidchars': {value: control.value}};
+    };
+  }
+
   getUsernameErrorMessage() {
     return this.username.hasError('required') ? 'You must enter a Username' :
       this.username.hasError('taken') ? 'Username already taken' :
-        '';
+        this.username.hasError('invalidchars') ? 'Username can`t contain @' :
+          '';
   }
 
   getEmailErrorMessage() {

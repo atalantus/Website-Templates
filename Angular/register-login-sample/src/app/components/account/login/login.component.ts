@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormControl, ValidatorFn, Validators} from '@angular/forms';
+import {FormControl, Validators} from '@angular/forms';
 import {SettingsService} from '../../../services/settings.service';
 import {AccountService} from '../../../services/account.service';
 import {MatSnackBar} from '@angular/material';
@@ -48,11 +48,26 @@ export class LoginComponent implements OnInit {
           });
           this.waiting = false;
         } else {
-          console.log('login');
+          const username = this.username.value.toString();
+          const usedUsername = !username.includes('@');
+          const pwd = this.password.value.toString();
+
+          this.accountService.login(username, usedUsername, pwd).subscribe((user) => {
+            if (user === null) {
+              this.waiting = false;
+              this.snackBar.open(usedUsername ? 'Username or password incorrect!' : 'Email or password incorrect!', null, {
+                panelClass: ['darker-warning-snackbar', 'center-content-snackbar'],
+                duration: 2000
+              });
+            } else {
+              this.login(user);
+            }
+          });
         }
 
         break;
       case 1:
+        this.waiting = false;
         this.snackBar.open(`Implement this yourself!`, null, {
           panelClass: ['center-content-snackbar'],
           duration: 2000
